@@ -1,0 +1,26 @@
+{
+  "name": "jqfy",
+  "version": "1.0.0",
+  "description": "Convert html to js function",
+  "main": "index.js",
+  "scripts": {
+    "build-debug": "browserify index.js -d --s jqfy > dist/jqfy.js",
+    "build-min": "browserify index.js --s jqfy | uglifyjs -c > dist/jqfy.min.js",
+    "build": "npm run build-debug && npm run build-min",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "smmoosavi-github:smmoosavi/jqfy.git"
+  },
+  "keywords": [
+    "jquery",
+    "template"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "lodash": "^2.4.1"
+  }
+}

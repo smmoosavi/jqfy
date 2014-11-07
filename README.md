@@ -1,7 +1,7 @@
 jQfy
 ====
 
-Complies in server, Render in browser 
+Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo)
 
 Install
 -------

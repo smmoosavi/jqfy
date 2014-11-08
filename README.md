@@ -14,9 +14,9 @@ Usage
 Complie htmls
 
 ```
-mkdir templates/
-vim templates/well.html # write your sub html
-jqfy -i templates/ -o js/templates.js
+$ mkdir templates/
+$ vim templates/well.html # write your sub html
+$ jqfy -i templates/ -o js/templates.js
 ```
 
 Use in browser:
@@ -25,7 +25,7 @@ Use in browser:
 <script src="js/jquery.min.js"></script>
 <script src="js/templates.js"></script>
 <script>
-    console.log(templates.well())
+    $('body').append(templates.well())
 </script>
 ```
 
@@ -58,7 +58,7 @@ Api
 var html = '<div class="text-success">jQfy</div>';
 var jqfy = require('jqfy');
 var code = jqfy.compile(html);
-$('body').append(code);
+console.log(code);
 ```
 
 output:

@@ -42,7 +42,7 @@ function compileFile(file, name) {
         comment: program.comment,
         returnType: program.returnType
     });
-    console.log('compile', file);
+    console.error('compile', file);
     cg.raw(code);
 
 }
@@ -52,7 +52,7 @@ function compileFiles(file, name) {
     if (stat.isDirectory()) {
         var cname = camelize(path.basename(file));
         if (/^[a-zA-Z]/.test(cname)) {
-            cname = '.' + cname
+            cname = '.' + cname;
         } else {
             cname = util.format('[%s]', JSON.stringify(cname));
         }
@@ -73,7 +73,14 @@ function compileFiles(file, name) {
     if (program.ext != ext) {
         return;
     }
-    compileFile(file, name + '.' + camelize(path.basename(file, '.' + ext)));
+    var fname = camelize(path.basename(file, '.' + ext));
+    if (/^[a-zA-Z]/.test(fname)) {
+        fname = '.' + fname;
+    } else {
+        fname = util.format('[%s]', JSON.stringify(fname));
+    }
+    name = name + fname;
+    compileFile(file, name);
 }
 
 

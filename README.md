@@ -6,7 +6,9 @@ Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/
 Install
 -------
 
-run `npm install -g jqfy`
+```
+$ npm install -g jqfy
+```
 
 Usage
 -----

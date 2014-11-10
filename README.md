@@ -56,6 +56,52 @@ $ jqfy -h
 Api
 ---
 
+### jqfy.compile(html, [opts])
+
+#### arguments: 
+
+* `html`: string, input html
+* `opts`: boject,
+ * `name`: string, name of generated function
+ * `returnType`: string, (children|html|root), default: children 
+ * `trim`: boolean, default true
+ * `comment`: boolean, default true
+ * `script`: boolean, default false ![not implemented][TODO:not-implemented]
+
+**returnType**: default return type of generated function.
+
+**trim**: remove white unnecessary white spaces.
+
+**comment**: keep html comments.
+
+#### return
+
+code of generated function
+
+### jqfy.append(html, [opts])
+
+![not implemented][TODO:not-implemented]
+
+like compile, but save code in memory
+
+### jqfy.getCode([name])
+
+![not implemented][TODO:not-implemented]
+
+get generated code
+
+#### arguments
+
+* `name`: string, default `templates`. name for [umd](https://github.com/umdjs/umd) module
+
+### jqfy.flush()
+
+![not implemented][TODO:not-implemented]
+
+remove in memory codes
+
+Example
+-------
 ```
 var html = '<div class="text-success">jQfy</div>';
 var jqfy = require('jqfy');
@@ -89,3 +135,5 @@ function (data, opts) {
     }
 }
 ```
+
+[TODO:not-implemented]: http://img.shields.io/badge/TODO-not%20implemented-yellow.svg "implemented"

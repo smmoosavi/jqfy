@@ -80,23 +80,17 @@ code of generated function
 
 ### jqfy.append(html, [opts])
 
-![not implemented][TODO:not-implemented]
-
 like compile, but save code in memory
 
 ### jqfy.getCode([name])
 
-![not implemented][TODO:not-implemented]
-
-get generated code
+get in memory generated code with [umd](https://github.com/umdjs/umd)
 
 #### arguments
 
-* `name`: string, default `templates`. name for [umd](https://github.com/umdjs/umd) module
+* `name`: string, default `templates`. name for umd module
 
 ### jqfy.flush()
-
-![not implemented][TODO:not-implemented]
 
 remove in memory codes
 

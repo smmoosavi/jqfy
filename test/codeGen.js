@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var CodeGen = require('../lib/codeGen');
+var jshint = require('jshint');
 
 describe('CodeGen', function () {
     describe('#normalizeName()', function () {
@@ -7,6 +8,7 @@ describe('CodeGen', function () {
             expect(CodeGen.normalizeName('t.x')).to.be.equals('t.x');
         });
         it('should return variable with dot notation when can', function () {
+            expect(CodeGen.normalizeName(['t'])).to.be.equals('t');
             expect(CodeGen.normalizeName(['t', 'x'])).to.be.equals('t.x');
             expect(CodeGen.normalizeName(['t', 'y', 'Salam'])).to.be.equals('t.y.Salam');
         });
@@ -19,7 +21,7 @@ describe('CodeGen', function () {
         it('should throw error when invalid variable name passed', function () {
             expect(function () {
                 CodeGen.normalizeName(['if']);
-            }).to.throw(/invalid variable name/);
+            }).to.throw(/Invalid variable name/);
         });
     });
 });

@@ -4,8 +4,8 @@ var program = require('commander');
 var jqfy = require('../index');
 var CodeGen = require('../lib/codeGen');
 var fs = require('fs');
-var util = require('util');
 var path = require('path');
+var glob = require("glob");
 
 function list(val) {
     return val.split(',').map(Number);
@@ -15,7 +15,7 @@ program
     .version(jqfy.version)
     .option('-i, --input [path]', 'source file or directory (default: .)', '.')
     .option('-o, --output [path]', 'destination file')
-    .option('-r, --return-type [type]', 'choice return type (root|children|html)')
+    .option('-r, --return-type [type]', 'choice return type (root|contents|html)')
     .option('-e, --ext [ext]', 'extensions (default: html)', 'html')
     .option('-n, --namespace [namespace]', 'namespace (default: templates)', 'templates')
     .option('-T, --no-trim', 'do not trim')
@@ -26,83 +26,31 @@ if (process.argv.length == 2) {
     program.help();
 }
 
-var cg = new CodeGen();
-
-function camelize(s) {
-    return s.replace(/(\-|_|\.|\s)+(.)?/g, function (mathc, sep, c) {
-        return (c ? c.toUpperCase() : '');
-    });
-}
-
 function compileFile(file, name) {
+    if (fs.statSync(file).isDirectory()) {
+        return;
+    }
     var content = fs.readFileSync(file, 'utf-8');
-    var code = jqfy.compile(content, {
+    jqfy.append(content, {
         name: name,
         trim: program.trim,
         comment: program.comment,
         returnType: program.returnType
     });
     console.error('compile', file);
-    cg.raw(code);
-
 }
 
-function compileFiles(file, name) {
-    var stat = fs.statSync(file);
-    if (stat.isDirectory()) {
-        var cname = camelize(path.basename(file));
-        if (/^[a-zA-Z]/.test(cname)) {
-            cname = '.' + cname;
-        } else {
-            cname = util.format('[%s]', JSON.stringify(cname));
-        }
-        name = name + cname;
-        if (file == program.input) {
-            name = 'templates';
-            cg.raw(util.format('var %s;', name));
-        }
-        cg.raw(util.format('%s = {};', name));
-        cg.raw();
-        var files = fs.readdirSync(file);
-        files.forEach(function (f) {
-            compileFiles(path.join(file, f), name);
-        });
-        return;
-    }
-    var ext = path.extname(file).substr(1);
-    if (program.ext != ext) {
-        return;
-    }
-    var fname = camelize(path.basename(file, '.' + ext));
-    if (/^[a-zA-Z]/.test(fname)) {
-        fname = '.' + fname;
-    } else {
-        fname = util.format('[%s]', JSON.stringify(fname));
-    }
-    name = name + fname;
+var pattern = path.normalize(program.input + '/**/*.' + program.ext);
+var files = glob.sync(pattern);
+var inputLength = path.normalize(program.input).split('/').length;
+files.forEach(function (file) {
+    var name = file.split('/').slice(inputLength - 1);
+    name[name.length - 1] = path.basename(name[name.length - 1], '.' + program.ext);
     compileFile(file, name);
-}
+});
 
-
-var umdBegin = "(function(root, factory) {\n" +
-    cg.getIndent(1) + "if (typeof define === 'function' && define.amd) {\n" +
-    cg.getIndent(2) + "define(" + JSON.stringify(program.namespace) + ", ['jquery'], factory);\n" +
-    cg.getIndent(1) + "} else if (typeof exports === 'object') {\n" +
-    cg.getIndent(2) + "module.exports = factory(require('jquery'));\n" +
-    cg.getIndent(1) + "} else {\n" +
-    cg.getIndent(2) + "root." + program.namespace + " = factory(jQuery);\n" +
-    cg.getIndent(1) + "}\n" +
-    "})(this, function($) {";
-var umdEnd = "});";
-
-cg.raw(umdBegin);
-cg.incIndent();
-compileFiles(program.input, program.namespace);
-cg.raw('return templates;');
-cg.decIndent();
-cg.raw(umdEnd);
 if (program.output) {
-    fs.writeFileSync(program.output, cg.getCode());
+    fs.writeFileSync(program.output, jqfy.getCode(program.namespace));
 } else {
-    process.stdout.write(cg.getCode());
+    process.stdout.write(jqfy.getCode(program.namespace));
 }

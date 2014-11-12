@@ -60,13 +60,17 @@ Api
 
 #### arguments: 
 
-* `html`: string, input html
-* `opts`: boject,
- * `name`: string, name of generated function
+* `html`: string
+* `opts`: object
+ * `name`: string|array 
  * `returnType`: string, (children|html|root), default: children 
  * `trim`: boolean, default true
  * `comment`: boolean, default true
  * `script`: boolean, default false ![not implemented][TODO:not-implemented]
+
+**html**: input html
+
+**name**: name of generated function as string or array. when you are use nested name, this better to use array.
 
 **returnType**: default return type of generated function.
 

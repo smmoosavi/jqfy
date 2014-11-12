@@ -1,6 +1,6 @@
 JSHINT=@jshint
 MOCHA=@./node_modules/.bin/mocha
-BROWSERIFY=@browserify
+BROWSERIFY=browserify
 MINIFY=uglifyjs -c
 
 lint:

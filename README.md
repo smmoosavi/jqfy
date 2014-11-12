@@ -1,5 +1,6 @@
 jQfy
 ====
+<img src="http://img.shields.io/npm/v/jqfy.svg">
 
 Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo)
 
@@ -36,21 +37,22 @@ help
 
 ```
 $ jqfy -h
-  
-    Usage: jqfy [options]
-  
-    Options:
-  
-      -h, --help                   output usage information
-      -V, --version                output the version number
-      -i, --input [path]           source file or directory (default: .)
-      -o, --output [path]          destination file
-      -r, --return-type [type]     choice return type (root|children|html)
-      -e, --ext [ext]              extensions (default: html)
-      -n, --namespace [namespace]  namespace (default: templates)
-      -T, --no-trim                do not trim
-      -C, --no-comment             ignore comments
-  
+ 
+   Usage: jqfy [options]
+ 
+   Options:
+ 
+     -h, --help                   output usage information
+     -V, --version                output the version number
+     -i, --input [path]           source file or directory (default: .)
+     -o, --output [path]          destination file
+     -r, --return-type [type]     choice return type (root|contents|html)
+     -e, --ext [ext]              extensions (default: html)
+     -n, --namespace [namespace]  namespace (default: templates)
+     -T, --no-trim                do not trim
+     -C, --no-comment             ignore comments
+ 
+
 ```
 
 Api
@@ -63,7 +65,7 @@ Api
 * `html`: string
 * `opts`: object
  * `name`: string|array 
- * `returnType`: string, (children|html|root), default: children 
+ * `returnType`: string, (contents|html|root), default: contents 
  * `trim`: boolean, default true
  * `comment`: boolean, default true
  * `script`: boolean, default false ![not implemented][TODO:not-implemented]
@@ -126,10 +128,11 @@ function (data, opts) {
             return $root.html();
         case 'root':
             return $root;
-        case 'children':
-            return $root.children();
+        case 'contents':
+        case 'children': // will be removed in version 2.*
+            return $root.contents();
         default :
-            return $root.children();
+            return $root.contents();
     }
 }
 ```

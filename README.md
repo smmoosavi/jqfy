@@ -1,6 +1,6 @@
 jQfy
 ====
-<img src="http://img.shields.io/npm/v/jqfy.svg">
+[![npm version][npm:version]](https://www.npmjs.org/package/jqfy)
 
 Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo)
 
@@ -137,4 +137,5 @@ function (data, opts) {
 }
 ```
 
+[npm:version]: http://img.shields.io/npm/v/jqfy.svg "npm"
 [TODO:not-implemented]: http://img.shields.io/badge/TODO-not%20implemented-yellow.svg "implemented"

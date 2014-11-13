@@ -19,6 +19,12 @@
     },
     "author": "smmoosavi",
     "license": "MIT",
+    "config": {
+        "blanket": {
+            "pattern": "lib",
+            "data-cover-never": "node_modules"
+        }
+    },
     "dependencies": {
         "cheerio": "^0.18.0",
         "commander": "^2.5.0",

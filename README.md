@@ -90,7 +90,7 @@ like compile, but save code in memory
 
 ### jqfy.getCode([name])
 
-get in memory generated code with [umd](https://github.com/umdjs/umd)
+get in memory generated code with [umd](umd)
 
 #### arguments
 
@@ -137,5 +137,14 @@ function (data, opts) {
 }
 ```
 
+How it works
+------------
+
+First we parse your html with [cheerio](cheerio) then foreach tag generate a code. This code create a jquery object
+and set id, class and attributes of element, then append jquery object to parent's jquery object. if script tags exist
+in your html, we append content of script to generated code.
+
 [npm:version]: http://img.shields.io/npm/v/jqfy.svg "npm"
-[TODO:not-implemented]: http://img.shields.io/badge/TODO-not%20implemented-yellow.svg "implemented"
+[TODO:not-implemented]: http://img.shields.io/badge/TODO-not%20implemented-yellow.svg "not implemented"
+[umd]: https://github.com/umdjs/umd "umd"
+[cheerio]: https://github.com/cheeriojs/cheerio "Cheerio"

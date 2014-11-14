@@ -2,7 +2,6 @@
 
 var program = require('commander');
 var jqfy = require('../index');
-var CodeGen = require('../lib/codeGen');
 var fs = require('fs');
 var path = require('path');
 var glob = require("glob");

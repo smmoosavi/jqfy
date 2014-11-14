@@ -2,7 +2,8 @@ jQfy
 ====
 [![npm version][npm:version]](https://www.npmjs.org/package/jqfy)
 
-Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo)
+Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo), 
+[examples](http://smmoosavi.github.io/jqfy/examples)
 
 Install
 -------

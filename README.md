@@ -149,6 +149,12 @@ function (data, opts) {
     return output;
 }
 ```
+Custom tags and attributes
+--------------------------
+
+### `jqfy:name` attribute
+
+Whit this attribute you can set variable name. 
 
 How it works
 ------------

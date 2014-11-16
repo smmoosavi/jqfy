@@ -88,9 +88,16 @@ code of generated function
 
 like compile, but save code in memory
 
-### jqfy.getCode([name])
+### jqfy.getCode([name],[opts])
 
 get in memory generated code with [umd][umd]
+
+**name**: string, name of global variable used in umd.  
+
+**opts**: object.
+
+**opts.useShortcutFunctions**: boolean, if true, we generate some shortcut function and use them. If you are compiling many
+ files, this option cause you got smaller file.
 
 #### arguments
 
@@ -151,6 +158,10 @@ function (data, opts) {
 ```
 Custom tags and attributes
 --------------------------
+
+### `script` tag
+
+We write content of script tags to body of function.
 
 ### `jqfy:name` attribute
 

@@ -1,6 +1,8 @@
 jQfy
 ====
-[![npm version][npm:version]](https://www.npmjs.org/package/jqfy)
+[![npm version][npm:version]][npm]
+[![Dependencies][dependencies]][david-dm]
+[![Downloads][npm:download]][npm]
 
 Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo), 
 [examples](http://smmoosavi.github.io/jqfy/examples)
@@ -174,7 +176,11 @@ First we parse your html with [cheerio][cheerio] then foreach tag generate a cod
 and set id, class and attributes of element, then append jquery object to parent's jquery object. if script tags exist
 in your html, we append content of script to generated code.
 
-[npm:version]: http://img.shields.io/npm/v/jqfy.svg "npm"
+[npm]: https://www.npmjs.org/package/jqfy "npm"
+[npm:version]: http://img.shields.io/npm/v/jqfy.svg "version"
+[npm:download]: http://img.shields.io/npm/dm/jqfy.svg "Download"
+[dependencies]: https://david-dm.org/smmoosavi/jqfy.png "Dependencies"
+[david-dm]: https://david-dm.org/smmoosavi/jqfy "Dependencies"
 [TODO:not-implemented]: http://img.shields.io/badge/TODO-not%20implemented-yellow.svg "not implemented"
 [umd]: https://github.com/umdjs/umd "umd"
 [cheerio]: https://github.com/cheeriojs/cheerio "Cheerio"

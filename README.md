@@ -71,16 +71,19 @@ Api
  * `returnType`: string, (contents|html|root), default: contents 
  * `trim`: boolean, default true
  * `comment`: boolean, default true
+ * `fixReturnType`: boolean, default false
 
 **html**: input html
 
-**name**: name of generated function as string or array. when you are use nested name, this better to use array.
+**opts.name**: name of generated function as string or array. when you are use nested name, this better to use array.
 
-**returnType**: default return type of generated function.
+**opts.returnType**: default return type of generated function.
 
-**trim**: remove white unnecessary white spaces.
+**opts.trim**: remove white unnecessary white spaces.
 
-**comment**: keep html comments.
+**opts.comment**: keep html comments.
+
+**opts.fixReturnType**: boolean, if true, fix return type of generated function, else generated function check `returnType` option.
 
 #### return
 
@@ -94,16 +97,17 @@ like compile, but save code in memory
 
 get in memory generated code with [umd][umd]
 
-**name**: string, name of global variable used in umd.  
-
-**opts**: object.
-
-**opts.useShortcutFunctions**: boolean, if true, we generate some shortcut function and use them. If you are compiling many
- files, this option cause you got smaller file.
-
 #### arguments
 
 * `name`: string, default `templates`. name for umd module
+* `opts`: object
+ * `useShortcutFunctions`: boolean, default false
+ * and all options that available in compile.
+
+**name**: name of global variable used in umd.
+ 
+**opts.useShortcutFunctions**: boolean, if true, we generate some shortcut function and use them. If you are compiling many
+ files, this option cause you got smaller file.
 
 ### jqfy.flush()
 

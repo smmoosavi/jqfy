@@ -1,4 +1,4 @@
-var expect = require('chai').expect;
+//var expect = require('chai').expect;
 var jqfy = require('../index');
 
 describe('jQfy', function () {
@@ -11,8 +11,9 @@ describe('jQfy', function () {
         '    });\n' +
         '</script>';
     var html = base + script;
-    jqfy.append(html, {'name': 'x'});
-    var code = jqfy.getCode();
+    jqfy.append(html, {'name': 'x', returnType: 'html'});
+    jqfy.append('<div>x</div>', {'name': 'y', fixReturnType: false});
+    var code = jqfy.getCode('ooo', {useShortcutFunctions: false, fixReturnType: true});
     console.log(html);
     console.log('=================');
     console.log(code);

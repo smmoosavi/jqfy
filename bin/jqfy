@@ -17,6 +17,8 @@ program
     .option('-r, --return-type [type]', 'choice return type (root|contents|html)')
     .option('-e, --ext [ext]', 'extensions (default: html)', 'html')
     .option('-n, --namespace [namespace]', 'namespace (default: templates)', 'templates')
+    .option('--fix-return-type', 'fix return type of generated function')
+    .option('--use-shortcut-functions', 'use shortcut functions in generated function')
     .option('-T, --no-trim', 'do not trim')
     .option('-C, --no-comment', 'ignore comments')
     .parse(process.argv);
@@ -48,8 +50,12 @@ files.forEach(function (file) {
     compileFile(file, name);
 });
 
+var opts = {
+    useShortcutFunctions: program.useShortcutFunctions,
+    fixReturnType: program.fixReturnType
+};
 if (program.output) {
-    fs.writeFileSync(program.output, jqfy.getCode(program.namespace));
+    fs.writeFileSync(program.output, jqfy.getCode(program.namespace, opts));
 } else {
-    process.stdout.write(jqfy.getCode(program.namespace));
+    process.stdout.write(jqfy.getCode(program.namespace, opts));
 }

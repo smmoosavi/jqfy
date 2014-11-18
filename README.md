@@ -40,21 +40,22 @@ help
 
 ```
 $ jqfy -h
- 
-   Usage: jqfy [options]
- 
-   Options:
- 
-     -h, --help                   output usage information
-     -V, --version                output the version number
-     -i, --input [path]           source file or directory (default: .)
-     -o, --output [path]          destination file
-     -r, --return-type [type]     choice return type (root|contents|html)
-     -e, --ext [ext]              extensions (default: html)
-     -n, --namespace [namespace]  namespace (default: templates)
-     -T, --no-trim                do not trim
-     -C, --no-comment             ignore comments
- 
+  
+    Usage: jqfy [options]
+  
+    Options:
+  
+      -h, --help                   output usage information
+      -V, --version                output the version number
+      -i, --input [path]           source file or directory (default: .)
+      -o, --output [path]          destination file
+      -r, --return-type [type]     choice return type (root|contents|html)
+      -e, --ext [ext]              extensions (default: html)
+      -n, --namespace [namespace]  namespace (default: templates)
+      --fix-return-type            fix return type of generated function
+      --use-shortcut-functions     use shortcut functions in generated function
+      -T, --no-trim                do not trim
+      -C, --no-comment             ignore comments
 
 ```
 

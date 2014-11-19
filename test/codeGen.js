@@ -200,7 +200,6 @@ describe('CodeGen', function () {
         var cg = new CodeGen();
         it('switch case tools codes and indentation', function () {
             cg.flush();
-            cg.flush();
             cg.startSwitch('x.y');
             cg.writeCase('a');
             cg.writeCase(2);
@@ -223,6 +222,57 @@ describe('CodeGen', function () {
             '        break;\n' +
             '    default :\n' +
             '        console.log("none");\n' +
+            '}\n');
+
+        });
+    });
+
+    describe('if, else if, else generator', function () {
+        var cg = new CodeGen();
+        it('if codes and indentation', function () {
+            cg.flush();
+            cg.startIf('x == 1');
+            cg.raw('console.log(1);');
+            cg.endIf();
+
+            expect(cg.getCode()).to.be.equals('if (x == 1) {\n' +
+            '    console.log(1);\n' +
+            '}\n');
+
+        });
+
+        it('if else codes and indentation', function () {
+            cg.flush();
+            cg.startIf('x == 1');
+            cg.raw('console.log(1);');
+            cg.writeElse();
+            cg.raw('console.log("other");');
+            cg.endIf();
+
+            expect(cg.getCode()).to.be.equals('if (x == 1) {\n' +
+            '    console.log(1);\n' +
+            '} else {\n' +
+            '    console.log("other");\n' +
+            '}\n');
+
+        });
+
+        it('if else if codes and indentation', function () {
+            cg.flush();
+            cg.startIf('x == 1');
+            cg.raw('console.log(1);');
+            cg.writeElseIf('x == 2');
+            cg.raw('console.log(2);');
+            cg.writeElse();
+            cg.raw('console.log("other");');
+            cg.endIf();
+
+            expect(cg.getCode()).to.be.equals('if (x == 1) {\n' +
+            '    console.log(1);\n' +
+            '} else if (x == 2) {\n' +
+            '    console.log(2);\n' +
+            '} else {\n' +
+            '    console.log("other");\n' +
             '}\n');
 
         });

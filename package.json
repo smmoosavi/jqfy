@@ -32,8 +32,9 @@
     "lodash": "^2.4.1"
   },
   "devDependencies": {
-    "jshint": "^2.5.10",
+    "blanket": "^1.1.6",
     "chai": "^1.10.0",
+    "jshint": "^2.5.10",
     "mocha": "^2.0.1"
   }
 }

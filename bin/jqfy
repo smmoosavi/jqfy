@@ -18,6 +18,7 @@ program
     .option('-e, --ext [ext]', 'extensions (default: html)', 'html')
     .option('-n, --namespace [namespace]', 'namespace (default: templates)', 'templates')
     .option('--fix-return-type', 'fix return type of generated function')
+    .option('--return-object', 'return object, output in $ property of object')
     .option('--use-shortcut-functions', 'use shortcut functions in generated function')
     .option('-T, --no-trim', 'do not trim')
     .option('-C, --no-comment', 'ignore comments')
@@ -33,10 +34,7 @@ function compileFile(file, name) {
     }
     var content = fs.readFileSync(file, 'utf-8');
     jqfy.append(content, {
-        name: name,
-        trim: program.trim,
-        comment: program.comment,
-        returnType: program.returnType
+        name: name
     });
     console.error('compile', file);
 }
@@ -51,8 +49,12 @@ files.forEach(function (file) {
 });
 
 var opts = {
+    trim: program.trim,
+    comment: program.comment,
+    returnType: program.returnType,
     useShortcutFunctions: program.useShortcutFunctions,
-    fixReturnType: program.fixReturnType
+    fixReturnType: program.fixReturnType,
+    returnObject: program.returnObject
 };
 if (program.output) {
     fs.writeFileSync(program.output, jqfy.getCode(program.namespace, opts));

@@ -68,11 +68,12 @@ Api
 
 * `html`: string
 * `opts`: object
- * `name`: string|array 
- * `returnType`: string, (contents|html|root), default: contents 
- * `trim`: boolean, default true
- * `comment`: boolean, default true
- * `fixReturnType`: boolean, default false
+  * `name`: string|array 
+  * `returnType`: string, (contents|html|root), default: contents 
+  * `trim`: boolean, default true
+  * `comment`: boolean, default true
+  * `fixReturnType`: boolean, default false
+  * `returnObject`: boolean, default false
 
 **html**: input html
 
@@ -85,6 +86,8 @@ Api
 **opts.comment**: keep html comments.
 
 **opts.fixReturnType**: boolean, if true, fix return type of generated function, else generated function check `returnType` option.
+
+**opts.returnObject**: boolean, if true, return object and set output in `$` field of object. it will be useful sometimes
 
 #### return
 

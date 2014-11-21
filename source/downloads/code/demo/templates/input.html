@@ -1,0 +1,26 @@
+<div data-input-div>
+    <div class="row">
+        <div class="col-md-6 col-xs-8">
+            <div class="input-group flat-bottom">
+                    <span class="input-group-addon">
+                        name:
+                    </span>
+                <input type="text" class="form-control" data-name-input>
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" data-remove-btn>x</button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <textarea class="form-control flat-top-left" data-code></textarea>
+</div>
+<script>
+    $input1.val(data.name);
+    $textarea1.val(data.code);
+    $button1.on('click',function(){
+        output.remove();
+        if(data.onRemove instanceof Function){
+            data.onRemove();
+        }
+    });
+</script>

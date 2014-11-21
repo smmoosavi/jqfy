@@ -1,0 +1,15 @@
+<li class="list-group-item">
+    <button class="btn btn-danger btn-xs stick-top stick-right" type="button" jqfy:name="$removeBtn">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+    <span jqfy:name="$textSpan">{{ text }}</span>
+    <div class="clearfix"></div>
+</li>
+<script>
+    if (data.text.trim() == '') {        // if text is empty
+        $textSpan.html('&nbsp;');           // prevent collapse
+    }
+    $removeBtn.on('click', function () {
+        output.remove();                 // remove item when remove btn clicked
+    });
+</script>

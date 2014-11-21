@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="input-group">
+            <input type="text" class="form-control" jqfy:name="$textInput">
+            <span class="input-group-btn">
+                <button class="btn btn-success" type="button" jqfy:name="$addBtn">
+                    add
+                </button>
+            </span>
+        </div>
+    </div>
+    <ul class="list-group" jqfy:name="$list"></ul>
+</div>
+<script>
+    $addBtn.on('click', function (e) {
+        var text = $textInput.val();        // get input value
+        $textInput.val('');                 // empty input
+        templates
+                .item({text: text})      // render new item
+                .appendTo($list);         // append item to list
+    });
+</script>

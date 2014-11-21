@@ -29,7 +29,7 @@
   left: 0
   width: 100%
   height: 100%
-  background: url(banner-url) center #000
+  background: url(banner-url) center 0 #000
   background-size: cover
   z-index: -1
 
@@ -163,3 +163,19 @@ $nav-link
   cursor: pointer
   &:hover, &:focus
     color: #777
+
+
+.background-img
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  opacity: 0.1;
+  overflow-x: hidden;
+  overflow-y: visible;
+  height: 210px;
+
+.background-img img
+  position: absolute;
+  right: -115px;
+  top: 10px;

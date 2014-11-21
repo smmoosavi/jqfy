@@ -1,15 +1,17 @@
 # Header
 menu:
   Home: /
-  Archives: /archives
-rss: /atom.xml
+  Demo: /demo/
+  Examples: /examples/
+#  blog: /blog
+#rss: /atom.xml
 
 # Content
 excerpt_link: Read More
-fancybox: true
+fancybox: false
 
 # Sidebar
-sidebar: right
+sidebar: bottom
 widgets:
 - category
 - tag

@@ -3,20 +3,20 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: jQfy
 subtitle:
 description:
-author: John Doe
+author: smmoosavi
 email:
 language:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
-permalink: :year/:month/:day/:title/
+url: http://smmoosavi.github.io
+root: /jqfy/
+permalink: blog/:year/:month/:day/:title/
 tag_dir: tags
-archive_dir: archives
+archive_dir: blog
 category_dir: categories
 code_dir: downloads/code
 permalink_defaults:
@@ -81,8 +81,18 @@ disqus_shortname:
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
 theme: landscape
 exclude_generator:
-
+- index
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: github
+  repo: smmoosavi-github:smmoosavi/jqfy.git
+  branch: gh-pages
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: false
+  smartLists: true
+  smartypants: false

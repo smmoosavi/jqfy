@@ -29,6 +29,19 @@
     <link rel="icon" href="<%- theme.favicon %>">
   <% } %>
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <%- css('bootstrap/css/bootstrap.css') %>
   <%- css('css/style') %>
+  <%- css('css/custom.css') %>
+
+  <% if (page.csss) {%>
+    <%- css(page.csss) %>
+  <% } %>
+
+  <%- js('js/jquery.min.js') %>
+  <%- js('bootstrap/js/bootstrap.js') %>
   <%- partial('google-analytics') %>
+  <% if (page.jss) {%>
+    <%- js(page.jss) %>
+  <% } %>
+
 </head>

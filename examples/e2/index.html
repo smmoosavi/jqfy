@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Example 2: Dynamic list | jQfy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Compile html files to js
+1234$ jqfy -i templates/ -o templates.js --fix-return-typecompile templates/item.htmlcompile templates/list.html
+
+By jqfy command we compile html templates to templates.js
+Cre">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Example 2: Dynamic list">
+<meta property="og:url" content="http://smmoosavi.github.io/jqfy/examples/e2/index.html">
+<meta property="og:site_name" content="jQfy">
+<meta property="og:description" content="Compile html files to js
+1234$ jqfy -i templates/ -o templates.js --fix-return-typecompile templates/item.htmlcompile templates/list.html
+
+By jqfy command we compile html templates to templates.js
+Cre">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Example 2: Dynamic list">
+<meta name="twitter:description" content="Compile html files to js
+1234$ jqfy -i templates/ -o templates.js --fix-return-typecompile templates/item.htmlcompile templates/list.html
+
+By jqfy command we compile html templates to templates.js
+Cre">
+
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/jqfy/bootstrap/css/bootstrap.css" type="text/css">
+
+  <link rel="stylesheet" href="/jqfy/css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="/jqfy/css/custom.css" type="text/css">
+
+
+  
+
+  <script src="/jqfy/js/jquery.min.js" type="text/javascript"></script>
+
+  <script src="/jqfy/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+  
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+    <div class="background-img">
+        <img src="/jqfy/images/jqfy-w.png">
+    </div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/jqfy/" id="logo">jQfy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/jqfy/">Home</a>
+        
+          <a class="main-nav-link" href="/jqfy/demo/">Demo</a>
+        
+          <a class="main-nav-link" href="/jqfy/examples/">Examples</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://smmoosavi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer outer-page">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/jqfy/examples/e2/index.html" class="article-date">
+  <time datetime="2014-11-21T22:11:22.000Z" itemprop="datePublished">Nov 22 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Example 2: Dynamic list
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Compile_html_files_to_js">Compile html files to js</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ jqfy -i templates/ -o templates.js --fix-return-type</div><div class="line"></div><div class="line">compile templates/item.html</div><div class="line">compile templates/list.html</div></pre></td></tr></table></figure>
+
+<p>By jqfy command we compile <a href="#html_templates">html templates</a> to <a href="../../downloads/code/examples/e2/templates.js">templates.js</a></p>
+<h1 id="Create_new_list">Create new list</h1>
+<figure class="highlight html"><figcaption><span>index.html</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"jquery.min.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"templates.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    $(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">        templates.list().appendTo(<span class="string">'#example'</span>);</div><div class="line">    });</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"example"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h1 id="Result">Result</h1>
+<p>Now we have an input and button. by clicking on the button, a list item with text of input will be added.  </p>
+<iframe id="cp_embed_azzXxg" src="//codepen.io/smmoosavi/embed/azzXxg?height=300&theme-id=7928&slug-hash=azzXxg&default-tab=result" scrolling="no" frameborder="0" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+<p>We have two <a href="#html_templates">html templates</a>.  <code>templates/list.html</code> and <code>templates/item.html</code>. </p>
+<h1 id="html_templates">html templates</h1>
+<figure class="highlight js"><figcaption><span>templates/list.html </span><a href="/downloads/code/examples/e2/templates/list.html">download</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;div <span class="keyword">class</span>=<span class="string">"panel panel-default"</span>&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"panel-body"</span>&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"input-group"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span> <span class="attribute">jqfy:name</span>=<span class="value">"$textInput"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"input-group-btn"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">jqfy:name</span>=<span class="value">"$addBtn"</span>&gt;</span></div><div class="line">                    add</div><div class="line">                <span class="tag">&lt;/<span class="title">button</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="title">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"list-group"</span> <span class="attribute">jqfy:name</span>=<span class="value">"$list"</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    $addBtn.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>{</div><div class="line">        <span class="keyword">var</span> text = $textInput.val();        <span class="comment">// get input value</span></div><div class="line">        $textInput.val(<span class="string">''</span>);                 <span class="comment">// empty input</span></div><div class="line">        templates</div><div class="line">                .item({text: text})      <span class="comment">// render new item</span></div><div class="line">                .appendTo($list);         <span class="comment">// append item to list</span></div><div class="line">    });</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<figure class="highlight js"><figcaption><span>templates/item.html </span><a href="/downloads/code/examples/e2/templates/item.html">download</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;li <span class="keyword">class</span>=<span class="string">"list-group-item"</span>&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger btn-xs stick-top stick-right"</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">jqfy:name</span>=<span class="value">"$removeBtn"</span>&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-remove"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">jqfy:name</span>=<span class="value">"$textSpan"</span>&gt;</span>{{ text }}<span class="tag">&lt;/<span class="title">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"clearfix"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">if</span> (data.text.trim() == <span class="string">''</span>) {        <span class="comment">// if text is empty</span></div><div class="line">        $textSpan.html(<span class="string">'&amp;nbsp;'</span>);           <span class="comment">// prevent collapse</span></div><div class="line">    }</div><div class="line">    $removeBtn.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">        output.remove();                 <span class="comment">// remove item when remove btn clicked</span></div><div class="line">    });</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h1 id="Generated_template-js">Generated template.js</h1>
+<figure class="highlight js"><figcaption><span>templates/item.html </span><a href="/downloads/code/examples/e2/templates.js">download</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(root, factory)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd) {</div><div class="line">        define(<span class="string">"templates"</span>, [<span class="string">'jquery'</span>], factory);</div><div class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>) {</div><div class="line">        <span class="built_in">module</span>.exports = factory(<span class="built_in">require</span>(<span class="string">'jquery'</span>));</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">        root.templates = factory(jQuery);</div><div class="line">    }</div><div class="line">})(<span class="keyword">this</span>, <span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>{</div><div class="line">    <span class="keyword">var</span> templates = {};</div><div class="line">    templates.item = <span class="function"><span class="keyword">function</span> <span class="params">(data, opts)</span> </span>{</div><div class="line">        <span class="comment">// generated by jQfy 1.3.7</span></div><div class="line">        opts = $.extend({}, opts);</div><div class="line">        data = $.extend({}, data);</div><div class="line">        <span class="keyword">var</span> $root = $(<span class="string">'&lt;div/&gt;'</span>);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $li1 = $(<span class="string">'&lt;li/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"list-group-item"</span>)</div><div class="line">            .appendTo($root);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $removeBtn = $(<span class="string">'&lt;button/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"btn btn-danger btn-xs stick-top stick-right"</span>)</div><div class="line">            .attr(<span class="string">"type"</span>, <span class="string">"button"</span>)</div><div class="line">            .appendTo($li1);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $span1 = $(<span class="string">'&lt;span/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"glyphicon glyphicon-remove"</span>)</div><div class="line">            .appendTo($removeBtn);</div><div class="line">        <span class="comment">//    end $span1</span></div><div class="line">        <span class="comment">//   end $removeBtn</span></div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $textSpan = $(<span class="string">'&lt;span/&gt;'</span>)</div><div class="line">            .appendTo($li1);</div><div class="line">        $textSpan.append(<span class="built_in">document</span>.createTextNode(<span class="string">""</span> + (data.text == <span class="literal">undefined</span> ? <span class="string">""</span> : data.text) + <span class="string">""</span>));</div><div class="line">        <span class="comment">//   end $textSpan</span></div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $div1 = $(<span class="string">'&lt;div/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"clearfix"</span>)</div><div class="line">            .appendTo($li1);</div><div class="line">        <span class="comment">//   end $div1</span></div><div class="line">        <span class="comment">//  end $li1</span></div><div class="line">        </div><div class="line">        <span class="comment">// start script 1</span></div><div class="line">        </div><div class="line">            <span class="keyword">if</span> (data.text.trim() == <span class="string">''</span>) {        <span class="comment">// if text is empty</span></div><div class="line">                $textSpan.html(<span class="string">'&amp;nbsp;'</span>);           <span class="comment">// prevent collapse</span></div><div class="line">            }</div><div class="line">            $removeBtn.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">                output.remove();                 <span class="comment">// remove item when remove btn clicked</span></div><div class="line">            });</div><div class="line">        </div><div class="line">        <span class="comment">//  end script 1</span></div><div class="line">        </div><div class="line">        <span class="comment">// end $root</span></div><div class="line">        <span class="keyword">var</span> output = $root.contents();</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">    };</div><div class="line">    </div><div class="line">    templates.list = <span class="function"><span class="keyword">function</span> <span class="params">(data, opts)</span> </span>{</div><div class="line">        <span class="comment">// generated by jQfy 1.3.7</span></div><div class="line">        opts = $.extend({}, opts);</div><div class="line">        data = $.extend({}, data);</div><div class="line">        <span class="keyword">var</span> $root = $(<span class="string">'&lt;div/&gt;'</span>);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $div1 = $(<span class="string">'&lt;div/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"panel panel-default"</span>)</div><div class="line">            .appendTo($root);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $div2 = $(<span class="string">'&lt;div/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"panel-body"</span>)</div><div class="line">            .appendTo($div1);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $div3 = $(<span class="string">'&lt;div/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"input-group"</span>)</div><div class="line">            .appendTo($div2);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $textInput = $(<span class="string">'&lt;input/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"form-control"</span>)</div><div class="line">            .attr(<span class="string">"type"</span>, <span class="string">"text"</span>)</div><div class="line">            .appendTo($div3);</div><div class="line">        <span class="comment">//     end $textInput</span></div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $span1 = $(<span class="string">'&lt;span/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"input-group-btn"</span>)</div><div class="line">            .appendTo($div3);</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $addBtn = $(<span class="string">'&lt;button/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"btn btn-success"</span>)</div><div class="line">            .attr(<span class="string">"type"</span>, <span class="string">"button"</span>)</div><div class="line">            .appendTo($span1);</div><div class="line">        $addBtn.append(<span class="built_in">document</span>.createTextNode(<span class="string">"add"</span>));</div><div class="line">        <span class="comment">//      end $addBtn</span></div><div class="line">        <span class="comment">//     end $span1</span></div><div class="line">        <span class="comment">//    end $div3</span></div><div class="line">        <span class="comment">//   end $div2</span></div><div class="line">        </div><div class="line">        <span class="keyword">var</span> $list = $(<span class="string">'&lt;ul/&gt;'</span>)</div><div class="line">            .addClass(<span class="string">"list-group"</span>)</div><div class="line">            .appendTo($div1);</div><div class="line">        <span class="comment">//   end $list</span></div><div class="line">        <span class="comment">//  end $div1</span></div><div class="line">        </div><div class="line">        <span class="comment">// start script 1</span></div><div class="line">        </div><div class="line">            $addBtn.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>{</div><div class="line">                <span class="keyword">var</span> text = $textInput.val();        <span class="comment">// get input value</span></div><div class="line">                $textInput.val(<span class="string">''</span>);                 <span class="comment">// empty input</span></div><div class="line">                templates</div><div class="line">                        .item({text: text})      <span class="comment">// render new item</span></div><div class="line">                        .appendTo($list);         <span class="comment">// append item to list</span></div><div class="line">            });</div><div class="line">        </div><div class="line">        <span class="comment">//  end script 1</span></div><div class="line">        </div><div class="line">        <span class="comment">// end $root</span></div><div class="line">        <span class="keyword">var</span> output = $root.contents();</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">    };</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> templates;</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<h1 id="And_some_extra_css">And some extra css</h1>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class">.stick-right</span> <span class="rules">{</span></div><div class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;</div><div class="line">    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> -<span class="number">15px</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-top-right-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-bottom-right-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"></div><div class="line"><span class="class">.stick-top</span> <span class="rules">{</span></div><div class="line">    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">10px</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-top-right-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-top-left-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"></div><div class="line"><span class="class">.stick-left</span> <span class="rules">{</span></div><div class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</div><div class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">15px</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-top-left-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">border-bottom-left-radius</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"></div><div class="line"><span class="id">#example</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">350px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> auto</span></span>;</div><div class="line">  <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> auto</span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"></div><div class="line"><span class="tag">body</span><span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#EDE7F6</span></span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smmoosavi.github.io/examples/e2/index.html" data-id="d6p12q0r2oofr9aj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/jqfy/blog/2014/11/">November 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/jqfy/blog/2014/11/22/hello-world/">jQfy</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 smmoosavi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/jqfy/" class="mobile-nav-link">Home</a>
+  
+    <a href="/jqfy/demo/" class="mobile-nav-link">Demo</a>
+  
+    <a href="/jqfy/examples/" class="mobile-nav-link">Examples</a>
+  
+</nav>
+    
+
+
+  <link rel="stylesheet" href="/jqfy/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/jqfy/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/jqfy/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

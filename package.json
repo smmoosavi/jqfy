@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "hexo-renderer-ejs": "*",
+    "hexo-renderer-marked": "*",
     "hexo-renderer-stylus": "*",
-    "hexo-renderer-marked": "*"
+    "hexo-tag-codepen": "^0.1.2"
   }
 }

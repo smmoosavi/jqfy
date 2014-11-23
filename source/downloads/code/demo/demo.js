@@ -9,6 +9,32 @@ $(function () {
     var code = '';
     var umdName = '';
 
+    function _loader(src, _path) {
+        var jsFile = '';
+        if (src.indexOf('/') === 0) {
+            jsFile = path.join('/', src);
+        } else {
+            jsFile = path.resolve(path.dirname(_path), src);
+        }
+        jsFile = jsFile.substr(1);
+        var output = null;
+        $('#inputs')
+            .find('[data-input-div]')
+            .each(function (i, e) {
+                var $e = $(e);
+                var $input = $e.find('[data-code]');
+                var $path = $e.find('[data-name-input]');
+                var _path = $path.val();
+                if (_path == jsFile) {
+                    output = $input.val();
+                }
+            });
+        if (output == null) {
+            output = '// ERROR js file not found: ' + jsFile;
+        }
+        return output;
+    }
+
     function update() {
         jqfy.flush();
         $('#inputs')
@@ -16,12 +42,14 @@ $(function () {
             .each(function (i, e) {
                 var $e = $(e);
                 var $input = $e.find('[data-code]');
-                var $name = $e.find('[data-name-input]');
-                var name = $name.val();
+                var $path = $e.find('[data-name-input]');
+                var path = $path.val();
                 var html = $input.val();
-                name = name.replace(/\.html$/, "");
-                name = name.split('/');
-                jqfy.append(html, {name: name});
+                var name = path.replace(/\.html$/, "");
+                if (name != path) {
+                    name = name.split('/');
+                    jqfy.append(html, {name: name, _path: path});
+                }
             });
         code = jqfy.getCode(umdName, {
             returnType: returnType,
@@ -29,7 +57,8 @@ $(function () {
             comment: comment,
             fixReturnType: fixReturnType,
             returnObject: returnObject,
-            useShortcutFunctions: useShortcutFunctions
+            useShortcutFunctions: useShortcutFunctions,
+            _loader: _loader
         });
         $output.text(code);
         hljs.highlightBlock($output[0]);

@@ -42,7 +42,12 @@ function compileFile(file, name) {
 }
 
 function _loader(src, file) {
-    var jsFile = path.join(program.input, src);
+    var jsFile = '';
+    if (src.indexOf('/') === 0) {
+        jsFile = path.join(program.input, src);
+    } else {
+        jsFile = path.resolve(path.dirname(file), src);
+    }
     if (!fs.existsSync(jsFile)) {
 
         throw new Error(util.format('referenced JS file in %s dose not exists (%s)', file, src));

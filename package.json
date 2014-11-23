@@ -11,8 +11,10 @@
     "url": "https://github.com/smmoosavi/jqfy.git"
   },
   "keywords": [
+    "jqfy",
     "jquery",
-    "template"
+    "template",
+    "view"
   ],
   "bin": {
     "jqfy": "./bin/jqfy"

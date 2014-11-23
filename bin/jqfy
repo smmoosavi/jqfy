@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var program = require('commander');
+var util = require('util');
 var jqfy = require('../index');
 var fs = require('fs');
 var path = require('path');
@@ -34,9 +35,22 @@ function compileFile(file, name) {
     }
     var content = fs.readFileSync(file, 'utf-8');
     jqfy.append(content, {
-        name: name
+        name: name,
+        _path: file
     });
     console.error('compile', file);
+}
+
+function _loader(src, file) {
+    var jsFile = path.join(program.input, src);
+    if (!fs.existsSync(jsFile)) {
+
+        throw new Error(util.format('referenced JS file in %s dose not exists (%s)', file, src));
+    }
+    if (fs.statSync(jsFile).isDirectory()) {
+        throw new Error(util.format('referenced JS file in %s is directory (%s)', file, src));
+    }
+    return fs.readFileSync(jsFile, 'utf-8');
 }
 
 var pattern = path.normalize(program.input + '/**/*.' + program.ext);
@@ -54,10 +68,19 @@ var opts = {
     returnType: program.returnType,
     useShortcutFunctions: program.useShortcutFunctions,
     fixReturnType: program.fixReturnType,
-    returnObject: program.returnObject
+    returnObject: program.returnObject,
+    _loader: _loader
 };
-if (program.output) {
-    fs.writeFileSync(program.output, jqfy.getCode(program.namespace, opts));
-} else {
-    process.stdout.write(jqfy.getCode(program.namespace, opts));
+
+
+try {
+    var code = jqfy.getCode(program.namespace, opts);
+
+    if (program.output) {
+        fs.writeFileSync(program.output, code);
+    } else {
+        process.stdout.write(code);
+    }
+} catch (e) {
+    console.error('\033[91m' + e.message + '\033[39m');
 }

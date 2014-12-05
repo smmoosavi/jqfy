@@ -1,6 +1,6 @@
 jQfy
 ====
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/smmoosavi/jqfy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 [![npm version][npm:version]][npm]
 [![Dependencies][dependencies]][david-dm]
 [![Downloads][npm:download]][npm]
@@ -217,6 +217,7 @@ and set id, class and attributes of element, then append jquery object to parent
 in your html, we append content of script to generated code.
 
 [npm]: https://www.npmjs.org/package/jqfy "npm"
+[gitter]: https://gitter.im/smmoosavi/jqfy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge "Gitter"
 [npm:version]: http://img.shields.io/npm/v/jqfy.svg "version"
 [npm:download]: http://img.shields.io/npm/dm/jqfy.svg "Download"
 [dependencies]: https://david-dm.org/smmoosavi/jqfy.png "Dependencies"

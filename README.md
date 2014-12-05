@@ -1,9 +1,9 @@
 jQfy
 ====
-[![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 [![npm version][npm:version]][npm]
 [![Dependencies][dependencies]][david-dm]
 [![Downloads][npm:download]][npm]
+[![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 
 Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo), 
 [examples](http://smmoosavi.github.io/jqfy/examples)

@@ -5,7 +5,7 @@ jQfy
 [![Downloads][npm:download]][npm]
 [![Gitter](https://badges.gitter.im/Join Chat.svg)][gitter]
 
-Complies in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo), 
+Compiles in server, Render in browser. [online demo](http://smmoosavi.github.io/jqfy/demo), 
 [examples](http://smmoosavi.github.io/jqfy/examples)
 
 Install
@@ -59,6 +59,53 @@ $ jqfy -h
       -C, --no-comment             ignore comments
 
 ```
+
+Custom tags and attributes
+--------------------------
+
+### `script` tag
+
+We write content of script tags to body of function. if `src` attribute exists, content ignored.
+
+#### attributes
+
+* `src`: script path  
+
+### `jqfy:name` attribute
+
+With this attribute you can set variable name. 
+
+### `{{val}}` in text or attribute name and value
+
+render value of `data.val` in the output html.
+
+note: in attribute name use `{{var}}` without space. for example `{{ x }}` not supported in attributes name
+
+#### example
+
+input html:
+```html
+<div id="div-{{ i }}" class="text-{{ type }}" data-{{k}}="{{ v }}">
+    {{i}}: {{ text }}
+</div>
+```
+
+use:
+```js
+render({
+  i: 5,
+  type: 'info',
+  k: 'target',
+  v: '#form-1',
+  text: 'Hi jQfy'
+}, {returnType: 'html'})
+```
+
+output:
+```html
+<div id="div-5" class="text-info" data-target="#form-1">5: Hi jQfy</div>
+```
+
 
 Api
 ---
@@ -166,47 +213,6 @@ function (data, opts) {
     }
     return output;
 }
-```
-Custom tags and attributes
---------------------------
-
-### `script` tag
-
-We write content of script tags to body of function.
-
-### `jqfy:name` attribute
-
-Whit this attribute you can set variable name. 
-
-### `{{val}}` in text or attribute name and value
-
-render value of `data.val` in the output html.
-
-note: in attribute name use `{{var}}` without space. for example `{{ x }}` not supported in attributes name
-
-#### example
-
-input html:
-```html
-<div id="div-{{ i }}" class="text-{{ type }}" data-{{k}}="{{ v }}">
-    {{i}}: {{ text }}
-</div>
-```
-
-use:
-```js
-render({
-  i: 5,
-  type: 'info',
-  k: 'target',
-  v: '#form-1',
-  text: 'Hi jQfy'
-}, {returnType: 'html'})
-```
-
-output:
-```html
-<div id="div-5" class="text-info" data-target="#form-1">5: Hi jQfy</div>
 ```
 
 How it works

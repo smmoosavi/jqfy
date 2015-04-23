@@ -242,7 +242,46 @@ describe('jQfy', function () {
 
                     return x({}, {returnType: 'html'});
                 }, function (result) {
-                    expect(result).to.be.equals('<div>x</div>');
+                    expect(result).to.be.equals('<div> x </div>');
+                    done();
+                }, code);
+            });
+            it('trim true (default)', function (done) {
+                var code = jqfy.compile('<div>\n    x</div>', {name: 'x'});
+                phantomTester.testInjectedCode(function () {
+                    /*jslint browser: true*/
+                    /*global $ */
+                    /*global x */
+
+                    return x({}, {returnType: 'html'});
+                }, function (result) {
+                    expect(result).to.be.equals('<div> x</div>');
+                    done();
+                }, code);
+            });
+            it('trim true (default)', function (done) {
+                var code = jqfy.compile('<div>x\n</div>', {name: 'x '});
+                phantomTester.testInjectedCode(function () {
+                    /*jslint browser: true*/
+                    /*global $ */
+                    /*global x */
+
+                    return x({}, {returnType: 'html'});
+                }, function (result) {
+                    expect(result).to.be.equals('<div>x </div>');
+                    done();
+                }, code);
+            });
+            it('trim true (default)', function (done) {
+                var code = jqfy.compile('<div>\n   \t\n</div>', {name: 'x '});
+                phantomTester.testInjectedCode(function () {
+                    /*jslint browser: true*/
+                    /*global $ */
+                    /*global x */
+
+                    return x({}, {returnType: 'html'});
+                }, function (result) {
+                    expect(result).to.be.equals('<div></div>');
                     done();
                 }, code);
             });

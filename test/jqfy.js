@@ -281,7 +281,7 @@ describe('jQfy', function () {
 
                     return x({}, {returnType: 'html'});
                 }, function (result) {
-                    expect(result).to.be.equals('<div></div>');
+                    expect(result).to.be.equals('<div> </div>');
                     done();
                 }, code);
             });

@@ -1,9 +1,10 @@
 $(function () {
     var $output = $('#output');
-    var returnType = 'children';
+    var returnType = 'contents';
     var trim = true;
     var comment = true;
     var useShortcutFunctions = false;
+    var useGetter = false;
     var fixReturnType = false;
     var returnObject = false;
     var code = '';
@@ -30,36 +31,42 @@ $(function () {
                 }
             });
         if (output == null) {
-            output = '// ERROR js file not found: ' + jsFile;
+            throw new Error('referenced JS file in ' + _path + ' dose not exists (' + src + ')');
         }
         return output;
     }
 
     function update() {
         jqfy.flush();
-        $('#inputs')
-            .find('[data-input-div]')
-            .each(function (i, e) {
-                var $e = $(e);
-                var $input = $e.find('[data-code]');
-                var $path = $e.find('[data-name-input]');
-                var path = $path.val();
-                var html = $input.val();
-                var name = path.replace(/\.html$/, "");
-                if (name != path) {
-                    name = name.split('/');
-                    jqfy.append(html, {name: name, _path: path});
-                }
+        code = null;
+        try {
+            $('#inputs')
+                .find('[data-input-div]')
+                .each(function (i, e) {
+                    var $e = $(e);
+                    var $input = $e.find('[data-code]');
+                    var $path = $e.find('[data-name-input]');
+                    var path = $path.val();
+                    var html = $input.val();
+                    var name = path.replace(/\.html$/, "");
+                    if (name != path) {
+                        name = name.split('/');
+                        jqfy.append(html, {name: name, _path: path});
+                    }
+                });
+            code = jqfy.getCode(umdName, {
+                returnType: returnType,
+                trim: trim,
+                comment: comment,
+                fixReturnType: fixReturnType,
+                returnObject: returnObject,
+                useShortcutFunctions: useShortcutFunctions,
+                useGetter: useGetter,
+                _loader: _loader
             });
-        code = jqfy.getCode(umdName, {
-            returnType: returnType,
-            trim: trim,
-            comment: comment,
-            fixReturnType: fixReturnType,
-            returnObject: returnObject,
-            useShortcutFunctions: useShortcutFunctions,
-            _loader: _loader
-        });
+        } catch (e){
+            code = '// Error: '+e.message;
+        }
         $output.text(code);
         hljs.highlightBlock($output[0]);
     }
@@ -97,6 +104,11 @@ $(function () {
     $('#use-shortcut-functions-chb')
         .on('change', function () {
             useShortcutFunctions = $(this).prop('checked');
+            update();
+        });
+    $('#use-getter-chb')
+        .on('change', function () {
+            useGetter = $(this).prop('checked');
             update();
         });
     $('#fix-return-type-chb')

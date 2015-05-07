@@ -21,6 +21,7 @@ program
     .option('--fix-return-type', 'fix return type of generated function')
     .option('--return-object', 'return object, output in $ property of object')
     .option('--use-shortcut-functions', 'use shortcut functions in generated function')
+    .option('--use-getter', 'use getter/escape functions in generated function')
     .option('-T, --no-trim', 'do not trim')
     .option('-C, --no-comment', 'ignore comments')
     .parse(process.argv);
@@ -72,6 +73,7 @@ var opts = {
     comment: program.comment,
     returnType: program.returnType,
     useShortcutFunctions: program.useShortcutFunctions,
+    useGetter: program.useGetter,
     fixReturnType: program.fixReturnType,
     returnObject: program.returnObject,
     _loader: _loader

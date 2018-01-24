@@ -2,6 +2,8 @@ var expect = require('chai').expect;
 var jqfy = require('../index');
 var phantom = require('phantom');
 
+var options = { 'web-security': 'no' };
+
 
 function PhantomTester(html) {
 
@@ -20,7 +22,7 @@ function PhantomTester(html) {
     tester.resetHtml();
 
     tester.test = function (fn, cb, data) {
-        phantom.create(function (ph) {
+        phantom.create({parameters: options}, function (ph) {
             ph.createPage(function (page) {
                 page.setContent(tester.html);
                 page.injectJs('node_modules/jquery/dist/jquery.js', function () {
@@ -34,7 +36,7 @@ function PhantomTester(html) {
     };
 
     tester.testInjectedCode = function (fn, cb, js, data) {
-        phantom.create(function (ph) {
+        phantom.create({parameters: options}, function (ph) {
             ph.createPage(function (page) {
                 page.setContent(tester.html);
                 page.injectJs('node_modules/jquery/dist/jquery.js', function () {

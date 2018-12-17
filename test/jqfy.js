@@ -1,335 +1,359 @@
-var expect = require('chai').expect;
-var jqfy = require('../index');
-var phantom = require('phantom');
+const puppeteer = require('puppeteer');
+const {expect} = require('chai');
+const jqfy = require('../index');
 
-var options = { 'web-security': 'no' };
+const opts = {
+    timeout: 20000
+};
+
+let defaultHtml = `
+<!doctype HTML>
+<html>
+  <head>
+    <title>title</title>
+  </head>
+  <body>
+    <p>Hello world</p>
+  </body>
+</html>
+`;
 
 
-function PhantomTester(html) {
+class Tester {
+    constructor(html = defaultHtml) {
+        this.html = html;
+    }
 
-    var tester = this;
-    var defaultHtml = '<!doctype HTML><html>' +
-        '<head><title>title</title></head>' +
-        '<body><p>Hello world</p></body>' +
-        '</html>';
+    async start() {
+        this.browser = await puppeteer.launch(opts);
+        this.page = await this.browser.newPage();
+    }
 
-    tester.resetHtml = function () {
-        tester.html = defaultHtml;
-        if (html) {
-            tester.html = html;
-        }
-    };
-    tester.resetHtml();
+    async resetPage() {
+        await this.page.goto(`data:text/html,${this.html}`, {waitUntil: 'networkidle0'});
+        await this.page.addScriptTag({path: 'node_modules/jquery/dist/jquery.js'});
+    }
 
-    tester.test = function (fn, cb, data) {
-        phantom.create({parameters: options}, function (ph) {
-            ph.createPage(function (page) {
-                page.setContent(tester.html);
-                page.injectJs('node_modules/jquery/dist/jquery.js', function () {
-                    page.evaluate(fn, function (result) {
-                        cb(result);
-                        ph.exit();
-                    }, data);
-                });
-            });
-        });
-    };
-
-    tester.testInjectedCode = function (fn, cb, js, data) {
-        phantom.create({parameters: options}, function (ph) {
-            ph.createPage(function (page) {
-                page.setContent(tester.html);
-                page.injectJs('node_modules/jquery/dist/jquery.js', function () {
-                    page.evaluate(function (js) {
-                        /*jslint browser: true*/
-                        /*global $ */
-                        $('<script></script>').html(js).appendTo('body');
-                    }, function () {
-                        page.evaluate(fn, function (result) {
-                            cb(result);
-                            ph.exit();
-                        }, data);
-                    }, js);
-                });
-            });
-        });
-    };
+    async stop() {
+        await this.page.close();
+        await this.browser.close();
+    }
 }
 
-describe('phantom tester', function () {
-    var phantomTester = new PhantomTester();
+describe('puppeteer tester', function () {
 
-    it('simple', function (done) {
-        phantomTester.test(function (data) {
+    let tester;
+    let page;
+    let browser;
+
+    before(async function () {
+        tester = new Tester();
+        await tester.start();
+        page = tester.page;
+        browser = tester.browser;
+    });
+
+    beforeEach(async function () {
+        await tester.resetPage();
+    })
+
+    after(async function () {
+        await tester.stop()
+    });
+
+    it('should work', async function () {
+        console.log(await browser.version());
+
+        expect(true).to.be.true;
+    });
+
+    it('simple', async function () {
+        const result = await page.evaluate(function (data) {
             /*jslint browser: true*/
             return 'Hello ' + data.name;
-        }, function (result) {
-            expect(result).to.be.equals('Hello world');
-            done();
         }, {name: 'world'});
+        expect(result).to.be.equals('Hello world');
     });
 
-    it('dom', function (done) {
-        phantomTester.test(function () {
+    it('dom', async function () {
+        const result = await page.evaluate(function () {
             /*jslint browser: true*/
             return document.title;
-        }, function (result) {
-            expect(result).to.be.equals('title');
-            done();
         });
+        expect(result).to.be.equals('title');
+
     });
 
-    it('jquery', function (done) {
-        phantomTester.test(function () {
+    it('jquery', async function () {
+        const result = await page.evaluate(function () {
             /*jslint browser: true*/
             /*global $ */
             return $('p').text();
-        }, function (result) {
-            expect(result).to.be.equals('Hello world');
-            done();
         });
+        expect(result).to.be.equals('Hello world');
     });
 
-    it('inject', function (done) {
-        phantomTester.testInjectedCode(function () {
+    it('inject', async function () {
+        const js = "$('p').text('Hi world');";
+        await page.addScriptTag({content: js});
+        const result = await page.evaluate(function () {
             /*jslint browser: true*/
             /*global $ */
             return $('p').text();
-        }, function (result) {
-            expect(result).to.be.equals('Hi world');
-            done();
-        }, "$('p').text('Hi world');");
+        });
+        expect(result).to.be.equals('Hi world');
     });
 
 });
 
 describe('jQfy', function () {
-    describe('static test', function () {
-        // TODO
-    });
     describe('execution test', function () {
-        var phantomTester = new PhantomTester();
+        let tester;
+        let page;
+        let browser;
+
+        before(async function () {
+            let html = `
+<!doctype HTML>
+<html>
+  <head></head>
+  <body></body>
+</html>
+`
+            tester = new Tester(html);
+            await tester.start();
+            page = tester.page;
+            browser = tester.browser;
+        });
+
+
+        beforeEach(async function () {
+            await tester.resetPage();
+        })
+
+        after(async function () {
+            await tester.stop();
+        });
+
         describe('tags', function () {
-            it('simple tag', function (done) {
-                var code = jqfy.compile('<div></div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('simple tag', async function () {
+                const code = jqfy.compile('<div></div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
-
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div></div>');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('<div></div>');
             });
 
-            it('pre tag', function (done) {
-                var html = '<pre>' +
+            it('pre tag', async function () {
+                const html = '<pre>' +
                     'if x:\n' +
                     '    print x\n' +
                     '</pre>';
-                var code = jqfy.compile(html, {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+                const code = jqfy.compile(html, {name: 'x'});
+                await page.addScriptTag({content: code});
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('pre:first').text();
-                }, function (result) {
-                    expect(result).to.be.equals('if x:\n    print x\n');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('if x:\n    print x\n');
             });
 
-            it('pre code tag', function (done) {
-                var html = '<pre>' +
+            it('pre code tag', async function () {
+                const html = '<pre>' +
                     '<code>if x:</code>\n' +
                     '<code>    print x</code>\n' +
                     '</pre>';
-                var code = jqfy.compile(html, {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+                const code = jqfy.compile(html, {name: 'x'});
+                await page.addScriptTag({content: code});
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('pre:first').text();
-                }, function (result) {
-                    expect(result).to.be.equals('if x:\n    print x\n');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('if x:\n    print x\n');
             });
 
-            it('comment', function (done) {
-                var code = jqfy.compile('<!-- x -->', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('comment', async function () {
+                const code = jqfy.compile('<!-- x -->', {name: 'x'});
+                await page.addScriptTag({content: code});
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
-
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<!-- x -->');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('<!-- x -->');
             });
         });
 
         describe('attributes', function () {
-            it('id', function (done) {
+            it('id', async function () {
 
-                var code = jqfy.compile('<div id="d"></div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+                const code = jqfy.compile('<div id="d"></div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('div:first').attr('id');
-                }, function (result) {
-                    expect(result).to.be.equals('d');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('d');
             });
 
-            it('class', function (done) {
-                var code = jqfy.compile('<div class="panel"></div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('class', async function () {
+                const code = jqfy.compile('<div class="panel"></div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('div:first').attr('class');
-                }, function (result) {
-                    expect(result).to.be.equals('panel');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('panel');
             });
 
-            it('attr', function (done) {
-                var code = jqfy.compile('<div data-target=".panel"></div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('attr', async function () {
+                const code = jqfy.compile('<div data-target=".panel"></div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('div:first').data('target');
-                }, function (result) {
-                    expect(result).to.be.equals('.panel');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('.panel');
             });
 
-            it('jqfy:name', function (done) {
-                var code = jqfy.compile('<div jqfy:name="myDiv"></div><script>myDiv.addClass("panel");</script>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('jqfy:name', async function () {
+                const code = jqfy.compile('<div jqfy:name="myDiv"></div><script>myDiv.addClass("panel");</script>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
                     x().appendTo('body');
                     return $('div:first').attr('class');
-                }, function (result) {
-                    expect(result).to.be.equals('panel');
-                    done();
-                }, code);
+                });
+                expect(result).to.be.equals('panel');
             });
         });
 
         describe('options', function () {
-            it('trim true (default)', function (done) {
-                var code = jqfy.compile('<div>\n    x\n</div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('trim true (default)', async function () {
+                const code = jqfy.compile('<div>\n    x\n</div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div> x </div>');
-                    done();
-                }, code);
+                })
+                expect(result).to.be.equals('<div> x </div>');
             });
-            it('trim true (default)', function (done) {
-                var code = jqfy.compile('<div>\n    x</div>', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('trim true (default)', async function () {
+                const code = jqfy.compile('<div>\n    x</div>', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div> x</div>');
-                    done();
-                }, code);
+                })
+                expect(result).to.be.equals('<div> x</div>');
             });
-            it('trim true (default)', function (done) {
-                var code = jqfy.compile('<div>x\n</div>', {name: 'x '});
-                phantomTester.testInjectedCode(function () {
+            it('trim true (default)', async function () {
+                const code = jqfy.compile('<div>x\n</div>', {name: 'x '});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div>x </div>');
-                    done();
-                }, code);
+                })
+                expect(result).to.be.equals('<div>x </div>');
+
             });
-            it('trim true (default)', function (done) {
-                var code = jqfy.compile('<div>\n   \t\n</div>', {name: 'x '});
-                phantomTester.testInjectedCode(function () {
+            it('trim true (default)', async function () {
+                const code = jqfy.compile('<div>\n   \t\n</div>', {name: 'x '});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div> </div>');
-                    done();
-                }, code);
-            });
+                })
+                expect(result).to.be.equals('<div> </div>');
 
-            it('trim false', function (done) {
-                var code = jqfy.compile('<div>\n    x\n</div>', {name: 'x',trim: false});
-                phantomTester.testInjectedCode(function () {
-                    /*jslint browser: true*/
-                    /*global $ */
-                    /*global x */
-
-                    return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<div>\n    x\n</div>');
-                    done();
-                }, code);
             });
 
-            it('comment true (default)', function (done) {
-                var code = jqfy.compile('<!-- x -->', {name: 'x'});
-                phantomTester.testInjectedCode(function () {
+            it('trim false', async function () {
+                const code = jqfy.compile('<div>\n    x\n</div>', {name: 'x', trim: false});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('<!-- x -->');
-                    done();
-                }, code);
+                })
+                expect(result).to.be.equals('<div>\n    x\n</div>');
+
             });
 
-            it('comment false', function (done) {
-                var code = jqfy.compile('<!-- x -->', {name: 'x',comment: false});
-                phantomTester.testInjectedCode(function () {
+            it('comment true (default)', async function () {
+                const code = jqfy.compile('<!-- x -->', {name: 'x'});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
                     /*jslint browser: true*/
                     /*global $ */
                     /*global x */
 
                     return x({}, {returnType: 'html'});
-                }, function (result) {
-                    expect(result).to.be.equals('');
-                    done();
-                }, code);
+                })
+                expect(result).to.be.equals('<!-- x -->');
+
+            });
+
+            it('comment false', async function () {
+                const code = jqfy.compile('<!-- x -->', {name: 'x', comment: false});
+                await page.addScriptTag({content: code});
+
+                const result = await page.evaluate(function () {
+                    /*jslint browser: true*/
+                    /*global $ */
+                    /*global x */
+
+                    return x({}, {returnType: 'html'});
+                })
+                expect(result).to.be.equals('');
+
             });
         });
-        // TODO many other tests
     });
 });

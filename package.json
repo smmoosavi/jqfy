@@ -1,6 +1,6 @@
 {
   "name": "jqfy",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Convert html to js function",
   "main": "index.js",
   "scripts": {

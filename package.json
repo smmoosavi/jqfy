@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "build": "rimraf dist && browserify index.js -d --s jqfy -o dist/jqfy.js && uglifyjs -c -o dist/jqfy.min.js dist/jqfy.js"
+    "build": "rimraf dist && browserify index.js -d --s jqfy -o dist/jqfy.js && terser -c -o dist/jqfy.min.js dist/jqfy.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "cheerio": "0",
-    "commander": "^2.8.1",
+    "commander": "^3.0.0",
     "glob": "^7.1.3",
     "lodash": "^4.17.11"
   },
@@ -39,10 +39,10 @@
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
     "jquery": "^3.3.1",
-    "mocha": "^5.2.0",
+    "mocha": "^6.2.0",
     "phantom": "^6.0.3",
     "puppeteer": "^1.11.0",
-    "rimraf": "^2.6.2",
-    "uglify-js": "^3.4.9"
+    "rimraf": "^3.0.0",
+    "terser": "^4.1.4"
   }
 }
